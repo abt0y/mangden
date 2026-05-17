@@ -1,6 +1,6 @@
 ---
 created: 2026-05-17T11:10
-updated: 2026-05-17T11:15
+updated: 2026-05-17T11:28
 ---
 # Báo cáo Thực trạng Giáo dục Đặc biệt
 ## Trường Tiểu học Quang Trung – Điểm Chuyên biệt TTCTXH Kon Tum
@@ -34,7 +34,13 @@ gddb-kontum-inclusion2b/
 ├── README.md
 ├── data/
 │   ├── ADUC_3.2_Tom_tat_noi_dung_hop_TTCTXH.docx
-│   ├── PHU_LUC_2_CB.rar
+│   ├── Soft_skill_Ky_nang_song/
+│   │   ├── KY NANG SÔNG LỚP 1K1.pdf
+│   │   ├── Phụ luc 2-1k2.pdf
+│   │   ├── PHỤ LỤC 2  1K1 (1) (1).pdf
+│   │   ├── Phụ lục 2 3K1.pdf
+│   │   ├── PHỤ LỤC 2  4k1.pdf
+│   │   └── Phụ lục 2 Lớp 2K1.pdf
 │   ├── class_rosters/
 │   │   ├── Danh_sach_GV_Boi_duong_SP_Khuyet_Tat.docx
 │   │   ├── QUANG_TRUNG_BC_KHUYET_TAT.docx
@@ -58,10 +64,11 @@ gddb-kontum-inclusion2b/
 │       └── ICF_Practical_Manual.pdf
 ├── reports/
 │   ├── archive/
+│   │   ├── BaoCao_NangCap_GDDB_QuangTrung_KonTum_2026.docx
 │   │   ├── BaoCao_ThucTrang_GDDB_TruongQuangTrung_KonTum_2026_original.docx
 │   │   └── CHATGPT_BaoCaoThucTrang_BanHoanChinh.docx
 │   └── current/
-│       └── BaoCao_NangCap_GDDB_QuangTrung_KonTum_2026.docx
+│       └── FINAL_BaoCao_NangCap_GDDB_QuangTrung_KonTum_2026.docx
 ├── scripts/
 └── tools/
     ├── Annex.pdf

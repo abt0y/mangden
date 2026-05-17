@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDĐB Quang Trung, Kon Tum | Inclusion 2b</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --secondary: #10b981;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --border: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 800;
+            letter-spacing: -0.02em;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: #7dd3fc;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            padding: 120px 20px 80px;
+            text-align: center;
+            background: radial-gradient(circle at top, var(--primary-dark), var(--bg-dark) 70%);
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg opacity="0.05" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="none"/><circle cx="50" cy="50" r="40" stroke="white" stroke-width="0.5" fill="none"/></svg>') repeat;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, #60a5fa, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(79, 70, 229, 0.2);
+            color: #a5b4fc;
+            padding: 6px 16px;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid rgba(79, 70, 229, 0.4);
+            margin-bottom: 20px;
+        }
+
+        /* Layout Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Cards & Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            margin: 60px 0;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            border-color: rgba(79, 70, 229, 0.5);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Table Styles */
+        .table-container {
+            overflow-x: auto;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            margin-bottom: 60px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 16px 24px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.03);
+            font-weight: 600;
+            color: #e2e8f0;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Tree File System */
+        .file-tree {
+            background: #0b1120;
+            padding: 24px;
+            border-radius: 12px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #60a5fa;
+            overflow-x: auto;
+            border: 1px solid var(--border);
+        }
+
+        .file-tree .dir { color: #f472b6; font-weight: bold; }
+        .file-tree .file { color: #a78bfa; }
+        .file-tree .comment { color: #64748b; font-style: italic; }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        section {
+            animation: fadeIn 1s both;
+            animation-timeline: view();
+            animation-range: entry 10% cover 30%;
+        }
+
+        /* Code Blocks */
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #38bdf8;
+        }
+
+        .highlight-box {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--secondary);
+            padding: 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 30px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <span class="tag">Dự án Inclusion 2b</span>
+            <h1>Báo cáo Thực trạng GDĐB</h1>
+            <p>Trường Tiểu học Quang Trung – Điểm Chuyên biệt TTCTXH Kon Tum</p>
+            <p style="font-size: 1rem; margin-top: -15px;">Mô hình: One PWD = One IIP (MDT Integrated Rehabilitation)</p>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Intro & Metadata -->
+        <section class="grid" style="margin-top: -40px;">
+            <div class="card" style="z-index: 2;">
+                <h3>🎯 Về Dự án</h3>
+                <p>Kho lưu trữ này chứa toàn bộ tài liệu, dữ liệu, công cụ và tài liệu tham khảo cho Báo cáo Thực trạng GDĐB tháng 5/2026. Nhằm hỗ trợ người khuyết tật bị ảnh hưởng chất độc da cam/dioxin tại Kon Tum.</p>
+            </div>
+            <div class="card" style="z-index: 2;">
+                <h3>👤 Nhóm thực hiện</h3>
+                <p><strong>Chuyên gia:</strong> Lê Tuấn Đức<br>
+                <em>Giáo dục Đặc biệt & PHCN Liên ngành</em></p>
+                <p style="margin-top: 10px;"><strong>Đơn vị:</strong> Trường TH Quang Trung, Phường Đắk Cấm – Điểm CB tại TTCTXH Kon Tum</p>
+            </div>
+        </section>
+
+        <!-- File Structure -->
+        <section>
+            <h2>Hệ thống Thư mục & Dữ liệu</h2>
+            <p style="margin-bottom: 20px; color: var(--text-muted);">Cấu trúc repo được chuẩn hóa và loại bỏ PII để bảo mật thông tin.</p>
+            
+            <div class="file-tree">
+gddb-kontum-inclusion2b/
+├── <span class="file">.gitignore</span>
+├── <span class="file">CHANGELOG.md</span>
+├── <span class="file">README.md</span>
+├── <span class="dir">data/</span> <span class="comment"># Dữ liệu hiện trường, phỏng vấn, hồ sơ</span>
+│   ├── <span class="file">ADUC_3.2_Tom_tat_noi_dung_hop_TTCTXH.docx</span>
+│   ├── <span class="dir">Soft_skill_Ky_nang_song/</span> <span class="comment"># Trích xuất từ Phụ lục 2</span>
+│   │   ├── <span class="file">KY NANG SÔNG LỚP 1K1.pdf</span>
+│   │   └── <span class="file">...</span>
+│   ├── <span class="dir">class_rosters/</span>
+│   ├── <span class="dir">student_profiles/</span>
+│   │   ├── <span class="dir">Student_1_KHIEM_THI/</span>
+│   │   └── <span class="comment">(các file raw bị ignore do PII)</span>
+│   └── <span class="dir">teacher_interviews/</span>
+├── <span class="dir">presentations/</span>
+├── <span class="dir">references/</span> <span class="comment"># Tài liệu tham khảo</span>
+│   ├── <span class="file">citations.bib</span>
+│   └── <span class="dir">WHO/</span>
+│       ├── <span class="file">ICF_CY_2007_WHO.pdf</span>
+│       └── <span class="file">ICF_Practical_Manual.pdf</span>
+├── <span class="dir">reports/</span> <span class="comment"># Báo cáo chính thức & lưu trữ</span>
+│   ├── <span class="dir">archive/</span>
+│   └── <span class="dir">current/</span>
+│       └── <span class="file">FINAL_BaoCao_NangCap_GDDB_QuangTrung_KonTum_2026.docx</span>
+├── <span class="dir">scripts/</span>
+└── <span class="dir">tools/</span> <span class="comment"># Công cụ & biểu mẫu</span>
+    ├── <span class="file">Annex.pdf</span>
+    ├── <span class="file">Implementation_plan_GROK.pdf</span>
+    └── <span class="file">SAMPLE_Du_thao_khung_bao_cao.docx</span>
+            </div>
+        </section>
+
+        <!-- Main Document Focus -->
+        <section class="highlight-box">
+            <h3 style="color: var(--secondary); margin-bottom: 10px;">📄 Báo cáo Nâng cấp (v2.0)</h3>
+            <p><strong>Đường dẫn:</strong> <code>reports/current/FINAL_BaoCao_NangCap_GDDB_QuangTrung_KonTum_2026.docx</code></p>
+            <p style="margin-top: 10px;">Báo cáo ~18.000 từ, 15 chương, 20+ bảng biểu, bao gồm:</p>
+            <ul style="margin-left: 20px; margin-top: 10px; color: var(--text-muted);">
+                <li>Executive Summary toàn diện</li>
+                <li>Phân tích 8 ca điển hình theo khung ICF-CY</li>
+                <li>10 mục tiêu SMART cụ thể theo từng dạng tật</li>
+                <li>Chiến lược can thiệp: AAC/PECS, PBS/FBA, ADL Task Analysis</li>
+                <li>Kế hoạch hành động 24 tháng + Ma trận RACI + KPI</li>
+            </ul>
+        </section>
+
+        <!-- ICF Codes Table -->
+        <section>
+            <h2>Phân loại ICF sử dụng</h2>
+            <div class="table-container" style="margin-top: 20px;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mã ICF</th>
+                            <th>Lĩnh vực</th>
+                            <th>Chi tiết / Ghi chú</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>d310–d399</code></td>
+                            <td>Giao tiếp (Communication)</td>
+                            <td>Tiếp nhận & diễn đạt</td>
+                        </tr>
+                        <tr>
+                            <td><code>d410–d499</code></td>
+                            <td>Vận động (Mobility)</td>
+                            <td>Tư thế, di chuyển, vận động tinh</td>
+                        </tr>
+                        <tr>
+                            <td><code>d510–d599</code></td>
+                            <td>Tự chăm sóc (Self-care / ADL)</td>
+                            <td>Vệ sinh, ăn uống, mặc quần áo</td>
+                        </tr>
+                        <tr>
+                            <td><code>b117</code></td>
+                            <td>Chức năng trí tuệ</td>
+                            <td>Đánh giá KTTT</td>
+                        </tr>
+                        <tr>
+                            <td><code>b140</code></td>
+                            <td>Chức năng chú ý</td>
+                            <td>Đánh giá ADHD</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p style="text-align: right; color: var(--text-muted); font-size: 0.9rem;">
+                Nguồn: <a href="https://icd.who.int/browse/2026-01/icf/en" target="_blank">WHO ICF 2026-01</a>
+            </p>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Dự án Inclusion 2b | Kon Tum, Việt Nam | Tháng 5 năm 2026</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.5;">Documentation generated dynamically. See README.md for raw content.</p>
+    </footer>
+
+</body>
+</html>
