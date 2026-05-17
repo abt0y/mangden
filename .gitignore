@@ -1,0 +1,35 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Node.js
+node_modules/
+npm-debug.log*
+package-lock.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.env
+venv/
+
+# Temporary / working files
+*.tmp
+*.bak
+*.swp
+~$*
+
+# Sensitive data — NEVER commit real student PII
+data/student_profiles/*_raw.xlsx
+data/student_profiles/*_identified.xlsx
+data/teacher_interviews/*_raw.md
+
+# Large binary files (manage via Git LFS if needed)
+# *.pdf   ← remove this line if you want to track PDFs
