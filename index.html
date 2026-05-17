@@ -1,41 +1,67 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GDĐB Quang Trung, Kon Tum | Inclusion 2b</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
+        /* CSS Variables for Dark/Light Mode */
+        :root[data-theme="dark"] {
             --primary: #4f46e5;
             --primary-dark: #3730a3;
             --secondary: #10b981;
-            --bg-dark: #0f172a;
+            --bg-main: #0f172a;
             --bg-card: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #38bdf8;
             --border: #334155;
+            --tree-bg: #0b1120;
+            --btn-bg: rgba(255, 255, 255, 0.1);
+            --btn-hover: rgba(255, 255, 255, 0.2);
+            --icon-folder: #f472b6;
+            --icon-file: #a78bfa;
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        :root[data-theme="light"] {
+            --primary: #4f46e5;
+            --primary-dark: #e0e7ff;
+            --secondary: #059669;
+            --bg-main: #f8fafc;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --accent: #0284c7;
+            --border: #cbd5e1;
+            --tree-bg: #f1f5f9;
+            --btn-bg: rgba(0, 0, 0, 0.05);
+            --btn-hover: rgba(0, 0, 0, 0.1);
+            --icon-folder: #db2777;
+            --icon-file: #7c3aed;
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
+            background-color: var(--bg-main);
             color: var(--text-main);
             line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Typography */
         h1, h2, h3, h4 {
             font-weight: 800;
             letter-spacing: -0.02em;
+            line-height: 1.2;
         }
 
         a {
@@ -45,15 +71,51 @@
         }
 
         a:hover {
-            color: #7dd3fc;
+            opacity: 0.8;
+        }
+
+        /* Nav & Theme Toggle */
+        .top-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: flex-end;
+            z-index: 100;
+            background: linear-gradient(to bottom, var(--bg-main) 50%, transparent);
+            backdrop-filter: blur(5px);
+        }
+
+        .theme-toggle {
+            background: var(--btn-bg);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .theme-toggle:hover {
+            background: var(--btn-hover);
+            transform: scale(1.05);
+        }
+
+        .theme-toggle svg {
+            width: 20px; height: 20px; fill: currentColor;
         }
 
         /* Hero Section */
         .hero {
             position: relative;
-            padding: 120px 20px 80px;
+            padding: 100px 20px 60px;
             text-align: center;
-            background: radial-gradient(circle at top, var(--primary-dark), var(--bg-dark) 70%);
+            background: radial-gradient(circle at top, var(--primary-dark), var(--bg-main) 70%);
             overflow: hidden;
         }
 
@@ -71,11 +133,10 @@
             z-index: 1;
             max-width: 900px;
             margin: 0 auto;
-            animation: fadeInDown 1s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: clamp(2rem, 5vw, 3.5rem);
             margin-bottom: 20px;
             background: linear-gradient(to right, #60a5fa, #a78bfa, #f472b6);
             -webkit-background-clip: text;
@@ -83,7 +144,7 @@
         }
 
         .hero p {
-            font-size: 1.25rem;
+            font-size: clamp(1rem, 2.5vw, 1.25rem);
             color: var(--text-muted);
             max-width: 700px;
             margin: 0 auto 30px;
@@ -91,14 +152,15 @@
 
         .tag {
             display: inline-block;
-            background: rgba(79, 70, 229, 0.2);
-            color: #a5b4fc;
+            background: rgba(79, 70, 229, 0.15);
+            color: var(--primary);
             padding: 6px 16px;
             border-radius: 999px;
             font-size: 0.875rem;
             font-weight: 600;
-            border: 1px solid rgba(79, 70, 229, 0.4);
+            border: 1px solid rgba(79, 70, 229, 0.3);
             margin-bottom: 20px;
+            backdrop-filter: blur(10px);
         }
 
         /* Layout Container */
@@ -111,9 +173,9 @@
         /* Cards & Grid */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 24px;
-            margin: 60px 0;
+            margin: 40px 0;
         }
 
         .card {
@@ -121,15 +183,16 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 30px;
-            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+            transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
             overflow: hidden;
+            z-index: 2;
         }
 
         .card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            border-color: rgba(79, 70, 229, 0.5);
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+            border-color: rgba(79, 70, 229, 0.4);
         }
 
         .card::before {
@@ -141,9 +204,7 @@
             transition: opacity 0.3s;
         }
 
-        .card:hover::before {
-            opacity: 1;
-        }
+        .card:hover::before { opacity: 1; }
 
         .card h3 {
             font-size: 1.5rem;
@@ -152,6 +213,91 @@
             align-items: center;
             gap: 10px;
         }
+
+        /* Document Embed Section */
+        .embed-section {
+            margin: 60px 0;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+        }
+
+        .embed-container {
+            position: relative;
+            width: 100%;
+            height: 70vh;
+            min-height: 500px;
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--tree-bg);
+        }
+
+        .embed-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: none;
+        }
+
+        /* Tree File System */
+        .tree-container {
+            background: var(--tree-bg);
+            padding: 24px;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            border: 1px solid var(--border);
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        ul.tree {
+            list-style: none;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        ul.tree > li {
+            position: relative;
+            margin: 5px 0;
+        }
+
+        ul.tree > li::before {
+            content: "";
+            position: absolute;
+            top: 0; bottom: 0; left: -10px;
+            border-left: 1px solid var(--border);
+        }
+
+        ul.tree summary {
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 4px;
+            border-radius: 6px;
+            color: var(--text-main);
+        }
+
+        ul.tree summary:hover { background: var(--btn-bg); }
+        ul.tree summary::marker { display: none; content: ""; }
+        ul.tree summary::-webkit-details-marker { display: none; }
+
+        ul.tree .file {
+            padding: 4px 4px 4px 28px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .icon-folder { color: var(--icon-folder); width: 18px; height: 18px; flex-shrink: 0; }
+        .icon-file { color: var(--icon-file); width: 16px; height: 16px; flex-shrink: 0; }
+        .comment { color: var(--secondary); font-style: italic; font-size: 0.85rem; margin-left: 10px; font-weight: normal; }
 
         /* Table Styles */
         .table-container {
@@ -165,88 +311,64 @@
         table {
             width: 100%;
             border-collapse: collapse;
+            min-width: 600px;
         }
 
         th, td {
-            padding: 16px 24px;
+            padding: 16px 20px;
             text-align: left;
             border-bottom: 1px solid var(--border);
         }
 
         th {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(0, 0, 0, 0.03);
             font-weight: 600;
-            color: #e2e8f0;
         }
 
-        tr:last-child td {
-            border-bottom: none;
-        }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--btn-hover); }
 
-        tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        /* Tree File System */
-        .file-tree {
-            background: #0b1120;
-            padding: 24px;
-            border-radius: 12px;
-            font-family: 'Consolas', 'Courier New', monospace;
-            font-size: 0.9rem;
-            color: #60a5fa;
-            overflow-x: auto;
-            border: 1px solid var(--border);
-        }
-
-        .file-tree .dir { color: #f472b6; font-weight: bold; }
-        .file-tree .file { color: #a78bfa; }
-        .file-tree .comment { color: #64748b; font-style: italic; }
-
-        /* Animations */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        section {
-            animation: fadeIn 1s both;
-            animation-timeline: view();
-            animation-range: entry 10% cover 30%;
-        }
-
-        /* Code Blocks */
         code {
-            background: rgba(0, 0, 0, 0.3);
+            background: var(--tree-bg);
             padding: 3px 6px;
             border-radius: 4px;
             font-family: monospace;
-            color: #38bdf8;
-        }
-
-        .highlight-box {
-            background: rgba(16, 185, 129, 0.1);
-            border-left: 4px solid var(--secondary);
-            padding: 20px;
-            border-radius: 0 8px 8px 0;
-            margin: 30px 0;
+            color: var(--accent);
+            border: 1px solid var(--border);
         }
 
         footer {
             text-align: center;
-            padding: 60px 20px;
+            padding: 40px 20px;
             color: var(--text-muted);
             border-top: 1px solid var(--border);
-            margin-top: 60px;
+            margin-top: 40px;
         }
+
+        /* Utilities */
+        .mt-4 { margin-top: 2rem; }
+        .mb-2 { margin-bottom: 1rem; }
+
+        /* SVG definitions */
+        svg { fill: currentColor; }
     </style>
 </head>
 <body>
+
+    <!-- SVG Sprites -->
+    <svg style="display: none;">
+        <symbol id="icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="1" x2="12" y2="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="21" x2="12" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="1" y1="12" x2="3" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="21" y1="12" x2="23" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+        <symbol id="icon-folder-svg" viewBox="0 0 24 24"><path d="M10 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2h-8l-2-2z"/></symbol>
+        <symbol id="icon-file-svg" viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></symbol>
+    </svg>
+
+    <!-- Theme Toggle -->
+    <nav class="top-nav">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Dark/Light Mode">
+            <svg id="theme-icon"><use href="#icon-sun"></use></svg>
+        </button>
+    </nav>
 
     <!-- Hero Section -->
     <header class="hero">
@@ -254,80 +376,152 @@
             <span class="tag">Dự án Inclusion 2b</span>
             <h1>Báo cáo Thực trạng GDĐB</h1>
             <p>Trường Tiểu học Quang Trung – Điểm Chuyên biệt TTCTXH Kon Tum</p>
-            <p style="font-size: 1rem; margin-top: -15px;">Mô hình: One PWD = One IIP (MDT Integrated Rehabilitation)</p>
+            <p style="font-size: 1rem; margin-top: -10px; font-weight: 500;">Mô hình: One PWD = One IIP (MDT Integrated Rehabilitation)</p>
         </div>
     </header>
 
     <main class="container">
         
         <!-- Intro & Metadata -->
-        <section class="grid" style="margin-top: -40px;">
-            <div class="card" style="z-index: 2;">
+        <section class="grid" style="margin-top: -30px;">
+            <div class="card">
                 <h3>🎯 Về Dự án</h3>
                 <p>Kho lưu trữ này chứa toàn bộ tài liệu, dữ liệu, công cụ và tài liệu tham khảo cho Báo cáo Thực trạng GDĐB tháng 5/2026. Nhằm hỗ trợ người khuyết tật bị ảnh hưởng chất độc da cam/dioxin tại Kon Tum.</p>
             </div>
-            <div class="card" style="z-index: 2;">
+            <div class="card">
                 <h3>👤 Nhóm thực hiện</h3>
                 <p><strong>Chuyên gia:</strong> Lê Tuấn Đức<br>
-                <em>Giáo dục Đặc biệt & PHCN Liên ngành</em></p>
-                <p style="margin-top: 10px;"><strong>Đơn vị:</strong> Trường TH Quang Trung, Phường Đắk Cấm – Điểm CB tại TTCTXH Kon Tum</p>
+                <span style="color: var(--text-muted); font-size: 0.9rem;">Giáo dục Đặc biệt & PHCN Liên ngành</span></p>
+                <p style="margin-top: 15px;"><strong>Đơn vị:</strong><br> Trường TH Quang Trung, Phường Đắk Cấm – Điểm CB tại TTCTXH Kon Tum</p>
             </div>
         </section>
 
-        <!-- File Structure -->
-        <section>
-            <h2>Hệ thống Thư mục & Dữ liệu</h2>
-            <p style="margin-bottom: 20px; color: var(--text-muted);">Cấu trúc repo được chuẩn hóa và loại bỏ PII để bảo mật thông tin.</p>
+        <!-- Document Embed Section -->
+        <section class="embed-section">
+            <h2 style="color: var(--primary);">📄 Báo cáo Nâng cấp (v2.0)</h2>
+            <p style="margin-top: 10px; color: var(--text-muted);">
+                Bản báo cáo hoàn chỉnh dài ~18.000 từ, 15 chương, 20+ bảng biểu. Chi tiết phân tích 8 ca điển hình theo khung ICF-CY, các mục tiêu SMART và chiến lược can thiệp AAC/PECS, PBS/FBA.
+            </p>
             
-            <div class="file-tree">
-gddb-kontum-inclusion2b/
-├── <span class="file">.gitignore</span>
-├── <span class="file">CHANGELOG.md</span>
-├── <span class="file">README.md</span>
-├── <span class="dir">data/</span> <span class="comment"># Dữ liệu hiện trường, phỏng vấn, hồ sơ</span>
-│   ├── <span class="file">ADUC_3.2_Tom_tat_noi_dung_hop_TTCTXH.docx</span>
-│   ├── <span class="dir">Soft_skill_Ky_nang_song/</span> <span class="comment"># Trích xuất từ Phụ lục 2</span>
-│   │   ├── <span class="file">KY NANG SÔNG LỚP 1K1.pdf</span>
-│   │   └── <span class="file">...</span>
-│   ├── <span class="dir">class_rosters/</span>
-│   ├── <span class="dir">student_profiles/</span>
-│   │   ├── <span class="dir">Student_1_KHIEM_THI/</span>
-│   │   └── <span class="comment">(các file raw bị ignore do PII)</span>
-│   └── <span class="dir">teacher_interviews/</span>
-├── <span class="dir">presentations/</span>
-├── <span class="dir">references/</span> <span class="comment"># Tài liệu tham khảo</span>
-│   ├── <span class="file">citations.bib</span>
-│   └── <span class="dir">WHO/</span>
-│       ├── <span class="file">ICF_CY_2007_WHO.pdf</span>
-│       └── <span class="file">ICF_Practical_Manual.pdf</span>
-├── <span class="dir">reports/</span> <span class="comment"># Báo cáo chính thức & lưu trữ</span>
-│   ├── <span class="dir">archive/</span>
-│   └── <span class="dir">current/</span>
-│       └── <span class="file">FINAL_BaoCao_NangCap_GDDB_QuangTrung_KonTum_2026.docx</span>
-├── <span class="dir">scripts/</span>
-└── <span class="dir">tools/</span> <span class="comment"># Công cụ & biểu mẫu</span>
-    ├── <span class="file">Annex.pdf</span>
-    ├── <span class="file">Implementation_plan_GROK.pdf</span>
-    └── <span class="file">SAMPLE_Du_thao_khung_bao_cao.docx</span>
+            <div class="embed-container">
+                <!-- Using Microsoft Office Online Viewer to embed the DOCX directly from GitHub Raw -->
+                <iframe src="https://view.officeapps.live.com/op/embed.aspx?src=https://raw.githubusercontent.com/abt0y/mangden/master/reports/current/FINAL_BaoCao_NangCap_GDDB_QuangTrung_KonTum_2026.docx" frameborder="0"></iframe>
             </div>
+            <p style="text-align: right; margin-top: 10px; font-size: 0.85rem;">
+                <a href="https://github.com/abt0y/mangden/raw/master/reports/current/FINAL_BaoCao_NangCap_GDDB_QuangTrung_KonTum_2026.docx" download>⬇️ Tải xuống (.docx)</a>
+            </p>
         </section>
 
-        <!-- Main Document Focus -->
-        <section class="highlight-box">
-            <h3 style="color: var(--secondary); margin-bottom: 10px;">📄 Báo cáo Nâng cấp (v2.0)</h3>
-            <p><strong>Đường dẫn:</strong> <code>reports/current/FINAL_BaoCao_NangCap_GDDB_QuangTrung_KonTum_2026.docx</code></p>
-            <p style="margin-top: 10px;">Báo cáo ~18.000 từ, 15 chương, 20+ bảng biểu, bao gồm:</p>
-            <ul style="margin-left: 20px; margin-top: 10px; color: var(--text-muted);">
-                <li>Executive Summary toàn diện</li>
-                <li>Phân tích 8 ca điển hình theo khung ICF-CY</li>
-                <li>10 mục tiêu SMART cụ thể theo từng dạng tật</li>
-                <li>Chiến lược can thiệp: AAC/PECS, PBS/FBA, ADL Task Analysis</li>
-                <li>Kế hoạch hành động 24 tháng + Ma trận RACI + KPI</li>
-            </ul>
+        <!-- Interactive File Structure -->
+        <section class="mt-4">
+            <h2>Hệ thống Thư mục & Dữ liệu</h2>
+            <p style="color: var(--text-muted); margin-top: 10px;">Cấu trúc kho lưu trữ được quy hoạch rõ ràng. Các thông tin PII (thông tin nhận dạng cá nhân) đã được ẩn danh.</p>
+            
+            <div class="tree-container">
+                <ul class="tree" style="padding-left: 0;">
+                    <li>
+                        <details open>
+                            <summary><svg class="icon-folder"><use href="#icon-folder-svg"></use></svg> gddb-kontum-inclusion2b</summary>
+                            <ul class="tree">
+                                <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> .gitignore</div></li>
+                                <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> CHANGELOG.md</div></li>
+                                <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> README.md</div></li>
+                                <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> index.html <span class="comment"># Giao diện web public</span></div></li>
+                                
+                                <li>
+                                    <details open>
+                                        <summary><svg class="icon-folder"><use href="#icon-folder-svg"></use></svg> data <span class="comment"># Dữ liệu hiện trường, phỏng vấn</span></summary>
+                                        <ul class="tree">
+                                            <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> ADUC_3.2_Tom_tat_noi_dung...docx</div></li>
+                                            <li>
+                                                <details>
+                                                    <summary><svg class="icon-folder"><use href="#icon-folder-svg"></use></svg> Soft_skill_Ky_nang_song <span class="comment"># Trích xuất từ Phụ lục 2</span></summary>
+                                                    <ul class="tree">
+                                                        <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> KY NANG SÔNG LỚP 1K1.pdf</div></li>
+                                                        <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> Phụ luc 2-1k2.pdf</div></li>
+                                                        <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> PHỤ LỤC 2 1K1.pdf</div></li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li><details><summary><svg class="icon-folder"><use href="#icon-folder-svg"></use></svg> class_rosters</summary></details></li>
+                                            <li>
+                                                <details>
+                                                    <summary><svg class="icon-folder"><use href="#icon-folder-svg"></use></svg> student_profiles</summary>
+                                                    <ul class="tree">
+                                                        <li><div class="file"><svg class="icon-folder" style="color:var(--text-muted)"><use href="#icon-folder-svg"></use></svg> Student_1_KHIEM_THI</div></li>
+                                                        <li><div class="file"><svg class="icon-folder" style="color:var(--text-muted)"><use href="#icon-folder-svg"></use></svg> Student_2_TRI_TUE_1K3</div></li>
+                                                        <li><div class="file"><span style="font-size: 0.85rem; color: var(--text-muted);">(Các file raw đã bị ẩn qua .gitignore)</span></div></li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li><details><summary><svg class="icon-folder"><use href="#icon-folder-svg"></use></svg> teacher_interviews</summary></details></li>
+                                        </ul>
+                                    </details>
+                                </li>
+
+                                <li>
+                                    <details open>
+                                        <summary><svg class="icon-folder"><use href="#icon-folder-svg"></use></svg> references <span class="comment"># Tài liệu tham khảo</span></summary>
+                                        <ul class="tree">
+                                            <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> citations.bib</div></li>
+                                            <li>
+                                                <details>
+                                                    <summary><svg class="icon-folder"><use href="#icon-folder-svg"></use></svg> WHO</summary>
+                                                    <ul class="tree">
+                                                        <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> ICF_CY_2007_WHO.pdf</div></li>
+                                                        <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> ICF_Practical_Manual.pdf</div></li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </li>
+
+                                <li>
+                                    <details open>
+                                        <summary><svg class="icon-folder"><use href="#icon-folder-svg"></use></svg> reports <span class="comment"># Báo cáo chính thức & lưu trữ</span></summary>
+                                        <ul class="tree">
+                                            <li>
+                                                <details>
+                                                    <summary><svg class="icon-folder"><use href="#icon-folder-svg"></use></svg> archive</summary>
+                                                    <ul class="tree">
+                                                        <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> BaoCao_NangCap...2026.docx</div></li>
+                                                        <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> BaoCao_ThucTrang...original.docx</div></li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                            <li>
+                                                <details open>
+                                                    <summary><svg class="icon-folder"><use href="#icon-folder-svg"></use></svg> current</summary>
+                                                    <ul class="tree">
+                                                        <li><div class="file" style="color: var(--secondary); font-weight: 600;"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> FINAL_BaoCao_NangCap_GDDB_QuangTrung_KonTum_2026.docx</div></li>
+                                                    </ul>
+                                                </details>
+                                            </li>
+                                        </ul>
+                                    </details>
+                                </li>
+
+                                <li>
+                                    <details>
+                                        <summary><svg class="icon-folder"><use href="#icon-folder-svg"></use></svg> tools <span class="comment"># Công cụ & biểu mẫu</span></summary>
+                                        <ul class="tree">
+                                            <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> Annex.pdf</div></li>
+                                            <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> Implementation_plan_GROK.pdf</div></li>
+                                            <li><div class="file"><svg class="icon-file"><use href="#icon-file-svg"></use></svg> SAMPLE_Du_thao_khung_bao_cao.docx</div></li>
+                                        </ul>
+                                    </details>
+                                </li>
+
+                            </ul>
+                        </details>
+                    </li>
+                </ul>
+            </div>
         </section>
 
         <!-- ICF Codes Table -->
-        <section>
+        <section class="mt-4">
             <h2>Phân loại ICF sử dụng</h2>
             <div class="table-container" style="margin-top: 20px;">
                 <table>
@@ -368,7 +562,7 @@ gddb-kontum-inclusion2b/
                 </table>
             </div>
             <p style="text-align: right; color: var(--text-muted); font-size: 0.9rem;">
-                Nguồn: <a href="https://icd.who.int/browse/2026-01/icf/en" target="_blank">WHO ICF 2026-01</a>
+                Nguồn tham chiếu: <a href="https://icd.who.int/browse/2026-01/icf/en" target="_blank">WHO ICF 2026-01</a>
             </p>
         </section>
 
@@ -376,8 +570,36 @@ gddb-kontum-inclusion2b/
 
     <footer>
         <p>Dự án Inclusion 2b | Kon Tum, Việt Nam | Tháng 5 năm 2026</p>
-        <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.5;">Documentation generated dynamically. See README.md for raw content.</p>
+        <p style="font-size: 0.8rem; margin-top: 10px; opacity: 0.5;">Documentation generated dynamically. See <a href="https://github.com/abt0y/mangden">GitHub Repository</a>.</p>
     </footer>
 
+    <!-- Script for Theme Toggle -->
+    <script>
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeIcon = document.getElementById('theme-icon');
+        const root = document.documentElement;
+
+        // Check local storage or system preference
+        const savedTheme = localStorage.getItem('theme');
+        const systemPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        const applyTheme = (theme) => {
+            root.setAttribute('data-theme', theme);
+            themeIcon.innerHTML = theme === 'dark' ? '<use href="#icon-sun"></use>' : '<use href="#icon-moon"></use>';
+            localStorage.setItem('theme', theme);
+        };
+
+        // Initialize theme
+        if (savedTheme) {
+            applyTheme(savedTheme);
+        } else if (!systemPrefersDark) {
+            applyTheme('light');
+        }
+
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = root.getAttribute('data-theme');
+            applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+    </script>
 </body>
 </html>
