@@ -33,3 +33,8 @@ data/teacher_interviews/*_raw.md
 
 # Large binary files (manage via Git LFS if needed)
 # *.pdf   ← remove this line if you want to track PDFs
+
+data/student_profiles/*_raw.pdf
+data/student_profiles/*_raw.docx
+data/teacher_interviews/*_raw.docx
+data/student_profiles/Student_*/*
