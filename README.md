@@ -1,6 +1,6 @@
 ---
 created: 2026-05-17T11:10
-updated: 2026-05-17T11:10
+updated: 2026-05-17T11:15
 ---
 # Báo cáo Thực trạng Giáo dục Đặc biệt
 ## Trường Tiểu học Quang Trung – Điểm Chuyên biệt TTCTXH Kon Tum
@@ -25,13 +25,52 @@ da cam/dioxin tại tỉnh Kon Tum.
 
 | Thư mục | Nội dung |
 |---|---|
-| `reports/current/` | Báo cáo nâng cấp hoàn chỉnh (phiên bản mới nhất) |
-| `reports/archive/` | Báo cáo gốc và các phiên bản cũ |
-| `references/` | Tài liệu tham khảo: WHO, luật VN, quốc tế |
-| `data/` | Hồ sơ chức năng học sinh, ghi chú phỏng vấn |
-| `tools/` | Mẫu IIP, biểu mẫu đánh giá, danh mục học liệu |
-| `presentations/` | Slide tập huấn và hội thảo |
-| `scripts/` | Script tạo file báo cáo (.docx) |
+## Hệ thống File và Thư mục
+
+```text
+gddb-kontum-inclusion2b/
+├── .gitignore
+├── CHANGELOG.md
+├── README.md
+├── data/
+│   ├── ADUC_3.2_Tom_tat_noi_dung_hop_TTCTXH.docx
+│   ├── PHU_LUC_2_CB.rar
+│   ├── class_rosters/
+│   │   ├── Danh_sach_GV_Boi_duong_SP_Khuyet_Tat.docx
+│   │   ├── QUANG_TRUNG_BC_KHUYET_TAT.docx
+│   │   └── QUANG_TRUNG_BC_KHUYET_TAT_2.docx
+│   ├── student_profiles/
+│   │   ├── Student_1_KHIEM_THI/
+│   │   ├── Student_2_TRI_TUE_1K3/
+│   │   ├── Student_3_KHIEM_THINH_2K1/
+│   │   ├── Student_4_VAN_DONG/
+│   │   ├── Student_5_NGHE_NOI/
+│   │   └── (các file raw bị ignore do chứa thông tin PII: *_raw.docx, *_raw.pdf)
+│   └── teacher_interviews/
+│       └── (các file raw bị ignore: *_raw.docx)
+├── presentations/
+├── references/
+│   ├── citations.bib
+│   ├── international/
+│   ├── Vietnam_legal/
+│   └── WHO/
+│       ├── ICF_CY_2007_WHO.pdf
+│       └── ICF_Practical_Manual.pdf
+├── reports/
+│   ├── archive/
+│   │   ├── BaoCao_ThucTrang_GDDB_TruongQuangTrung_KonTum_2026_original.docx
+│   │   └── CHATGPT_BaoCaoThucTrang_BanHoanChinh.docx
+│   └── current/
+│       └── BaoCao_NangCap_GDDB_QuangTrung_KonTum_2026.docx
+├── scripts/
+└── tools/
+    ├── Annex.pdf
+    ├── assessment_forms/
+    ├── equipment_list/
+    ├── IIP_template/
+    ├── Implementation_plan_GROK.pdf
+    └── SAMPLE_Du_thao_khung_bao_cao.docx
+```
 
 ---
 
